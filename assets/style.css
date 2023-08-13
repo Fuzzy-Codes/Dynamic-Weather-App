@@ -1,0 +1,62 @@
+
+html {
+    background-color: plum;
+    border: groove 25px darkblue;
+    height: 100%;
+}
+
+.row1, .row3 {
+    margin: 1.4rem;
+    display: flex;
+    border: solid 3px darkblue;
+    background-color: aqua;
+    justify-content: center;
+}
+
+.header, .nav {
+    max-width: fit-content;
+    background-color: darkcyan;
+    border: solid 3px darkblue;
+    margin: 1rem;
+    padding: 0 1rem;
+}
+
+.search {
+    margin-bottom: 1rem;
+}
+
+input {
+    text-align: center;
+    padding: .4rem 0;
+    background-color: aqua;
+    border: solid 2px darkblue;
+    color: black;
+}
+
+::placeholder {
+    font-style: italic;
+    font-weight: bolder;
+    color: black;
+}
+
+
+#btn {
+    background-color: gold;
+    border: solid 2px darkblue;
+    color: black;
+
+}
+
+h1{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: gold;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    color: gold;
+}
