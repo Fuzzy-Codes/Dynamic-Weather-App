@@ -23,11 +23,39 @@ function fetchCurrentWeather(city) {
             const year = date.getFullYear()
             currentSearch.innerHTML = data.name + " " + month + "/" + day + "/" + year
             icon.setAttribute("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png")
-            icon.setAttribute("alt", "")
+            icon.setAttribute("alt", data.weather[0].description)
             temp.innerHTML = "Temp: " + data.main.temp + "&#176F"
             wind.innerHTML = "Wind: " + data.wind.speed + "mph"
             humidity.innerHTML = "Humidity: " + data.main.humidity + "%"
     })
+}
+
+function fetchForecastWeather(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=` + city + "&appid=" + apiKey + "&units=imperial")
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (data) {
+            console.log(data)
+            for (let i = 0; i < forecastCard.length; i++) {
+                forecastCard[i].innerHTML = ""
+                const index = i * 8 + 4
+                const date = new Date(data.list[index].dt * 1000)
+                const month = date.getMonth() + 1
+                const day = date.getDate()
+                const year = date.getFullYear()
+
+                const dateEl = document.createElement("h2")
+                dateEl.innerHTML = month + "/" + day + "/" + year
+                forecastCard[i].append(dateEl)
+
+                const icon = document.createElement("img")
+                icon.setAttribute("src", "https://openweathermap.org/img/wn/" + data.list[index].weather[0].icon + "@2x.png")
+                icon.setAttribute("alt", data.list[index].weather[0].description)
+                forecastCard[i].append(icon)
+
+            }
+        })
 }
 
 
@@ -39,7 +67,9 @@ function renderHistoryBtn() {
         historyList.append(historyBtn)
         historyBtn.addEventListener("click", function (event) {
             fetchCurrentWeather(event.target.innerHTML)
+            fetchForecastWeather(event.target.innerHTML)
         })
+        historyBtn.style.backgroundColor = "yellow"
     }
 }
 
@@ -49,7 +79,7 @@ btn.addEventListener("click", function () {
     searchHistory.push(cityName)
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory))
     fetchCurrentWeather(cityName)
-
+    fetchForecastWeather(cityName)
     renderHistoryBtn()
 })
 

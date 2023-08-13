@@ -60,3 +60,15 @@ h2 {
     font-weight: bolder;
     color: gold;
 }
+
+#forecastSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#forecastCard {
+    margin: 10px;
+}
+
+
