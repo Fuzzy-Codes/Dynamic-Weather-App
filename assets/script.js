@@ -8,6 +8,7 @@ const icon = document.querySelector("#icon")
 const temp = document.querySelector("#temp")
 const wind = document.querySelector("#wind")
 const humidity = document.querySelector("#humidity")
+const historyList = document.querySelector("#historyList")
 
 function fetchCurrentWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=` + city + "&appid=" + apiKey + "&units=imperial")
@@ -29,7 +30,28 @@ function fetchCurrentWeather(city) {
     })
 }
 
+
+function renderHistoryBtn() {
+    let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
+    for (let i = 0; i < searchHistory.length; i++) {
+        var historyBtn = document.createElement("button")
+        historyBtn.innerHTML = searchHistory[i]
+        historyList.append(historyBtn)
+        historyBtn.addEventListener("click", function (event) {
+            fetchCurrentWeather(event.target.innerHTML)
+        })
+    }
+}
+
 btn.addEventListener("click", function () {
+    let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
     var cityName = cityInput.value;
+    searchHistory.push(cityName)
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory))
     fetchCurrentWeather(cityName)
+
+    renderHistoryBtn()
 })
+
+renderHistoryBtn()
+
