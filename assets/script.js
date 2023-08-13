@@ -53,6 +53,17 @@ function fetchForecastWeather(city) {
                 icon.setAttribute("src", "https://openweathermap.org/img/wn/" + data.list[index].weather[0].icon + "@2x.png")
                 icon.setAttribute("alt", data.list[index].weather[0].description)
                 forecastCard[i].append(icon)
+                const temp = document.createElement("p")
+                temp.innerHTML = "Temp: " + data.list[index].main.temp + "&#176F"
+                forecastCard[i].append(temp)
+
+                const wind = document.createElement("p")
+                wind.innerHTML = "Wind: " + data.list[index].wind.speed + "mph"
+                forecastCard[i].append(wind)
+
+                const humidity = document.createElement("p")
+                humidity.innerHTML = "Humidity: " + data.list[index].main.humidity + "%"
+                forecastCard[i].append(humidity)
 
             }
         })
